@@ -37,7 +37,7 @@ def read_examples(name):
 def continous_attribute_gain(examples, attribute_index, labels):
     before = entropy(labels)
     total_num = len(labels)
-    assert all(map(lambda x: len(x)==4, examples))
+    # assert all(map(lambda x: len(x)==4, examples))
     values = [example[attribute_index] for example in examples]
     values = map(float, values)
     values = set(values)
@@ -119,7 +119,7 @@ if __name__ == '__main__':
     #print examples
     #print label_entropy(labels, "1")
     #print entropy(labels)
-    #print gain_ratio(examples, 1, labels)
-    #print gain_ratio(examples, 2, labels)
-    #print attribute_gini(examples, 0)
+    print gain_ratio(examples, 1, labels)
+    print gain_ratio(examples, 2, labels)
+    print attribute_gini(examples, 0)
     print continous_attribute_gain(examples, 3, labels)
