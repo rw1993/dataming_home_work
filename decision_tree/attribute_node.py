@@ -4,6 +4,7 @@
 import gain_tools
 from node import Node
 import gini_tools
+import mce_tools
 
 class Attribute_Node(Node):
 
@@ -12,6 +13,8 @@ class Attribute_Node(Node):
             split_index = self.get_max_gain_index()
         elif self.split_method == "gini":
             split_index = self.get_max_gini_index()
+        elif self.split_method == "mce":
+            split_index = self.get_max_mce_index()
         self.split_index = split_index
         attribute_types = set([e[split_index] for e in self.examples])
         sub_examples = {}
@@ -36,9 +39,12 @@ class Attribute_Node(Node):
     def get_max_gini_index(self):
         return self.get_max_index(gini_tools.gini_gain)
 
+    def get_max_mce_index(self):
+        return self.get_max_index(mce_tools.mce_gain)
+
     def get_max_index(self, gain_func):
         max_gain_index = None
-        max_gain = 0
+        max_gain = -999999
         for index in self.use_indexs:
             gain = gain_func(self.examples,
                              index,

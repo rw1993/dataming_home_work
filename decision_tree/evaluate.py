@@ -83,7 +83,6 @@ def bootstrap(cls, examples, labels):
 
 
 if __name__ == '__main__':
-    """
     cls = decision_tree.Decision_Tree()
     examples, labels = car_data.read_car_data()
     print holdout(cls, examples, labels)
@@ -99,9 +98,26 @@ if __name__ == '__main__':
     print holdout(cls, examples, labels)
     print ten_fold(cls, examples, labels)
     print bootstrap(cls, examples, labels)
-    """
+    cls = decision_tree.Decision_Tree(split_method="mce")
+    examples, labels = car_data.read_car_data()
+    print holdout(cls, examples, labels)
+    print ten_fold(cls, examples, labels)
+    print bootstrap(cls, examples, labels)
     cls = decision_tree.Decision_Tree(split_method="gini")
     examples, labels = car_data.read_car_data()
     print holdout(cls, examples, labels)
     print ten_fold(cls, examples, labels)
     print bootstrap(cls, examples, labels)
+    cls = decision_tree.Decision_Tree(pruning_method="post",
+                                      pruning_rate=0.8)
+    examples, labels = car_data.read_car_data()
+    print holdout(cls, examples, labels)
+    print ten_fold(cls, examples, labels)
+    print bootstrap(cls, examples, labels)
+    cls = decision_tree.Decision_Tree(pruning_method="pre",
+                                      pruning_rate=0.8)
+    examples, labels = car_data.read_car_data()
+    print holdout(cls, examples, labels)
+    print ten_fold(cls, examples, labels)
+    print bootstrap(cls, examples, labels)
+

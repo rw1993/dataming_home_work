@@ -12,14 +12,19 @@ class Decision_Tree(object):
                      "continous": Continous_Node}
 
     def __init__(self, split_method="gain", pruning_method=None,
-                 attribute="attribute"):
+                 attribute="attribute", pruning_rate=None):
         self.split_method = split_method
         self.pruning_method = pruning_method
         self.Node = self.node_type_map[attribute]
+        self.pruning_rate = pruning_rate
 
     def fit(self, examples, labels):
         self.root = self.Node.root_node(examples, labels,
-                                        self.split_method)
+                                        self.split_method,
+                                        self.pruning_method,
+                                        self.pruning_rate)
+        if self.pruning_method == "post":
+            self.root.prune()
     
     def predict(self, example):
         assert not self.root is None, "predict before fit"
