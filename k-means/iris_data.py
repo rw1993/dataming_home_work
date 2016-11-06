@@ -14,8 +14,7 @@ def read_continous_data(dataname="iris.data"):
             e = line.split(",")
             labels.append(e[-1])
             examples.append(map(float, e[:-1]))
-    examples = pre.maxabs_scale(numpy.array(examples))
-    #examples = pre.normalize(numpy.array(examples))
+    examples = pre.normalize(numpy.array(examples))
     examples = [list(e) for e in examples]
     return examples, labels
 
