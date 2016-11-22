@@ -4,6 +4,7 @@
 import decision_tree
 import math
 from sklearn import preprocessing
+import random
 
 class Adaboost():
     
@@ -28,12 +29,27 @@ class Adaboost():
                   key=lambda x:predict_labels[x])
         return key
 
+    def booting(self, weights, examples, labels):
+        es = []
+        ls = []
+        for i in range(len(examples)):
+            r = random.random()
+            s = 0.0
+            for index, w in enumerate(weights):
+                s = s + w
+                if s > r:
+                    es.append(examples[index])
+                    ls.append(labels[index])
+                    break
+        return es, ls
+
+
     def fit(self, examples, labels):
         len_D = len(labels)
         weights = [float(1) / len_D for e in examples]
         for i in range(self.cls_num):
             cls = self.base_CLS(**self.parameters)
-            cls.fit(examples, labels)
+            cls.fit(*self.booting(weights, examples, labels))
             self.clss.append(cls)
             error = 0
             p_labels = []

@@ -84,6 +84,7 @@ def bootstrap(cls, examples, labels):
 
 
 if __name__ == '__main__':
+    """
     cls = decision_tree.Decision_Tree()
     examples, labels = car_data.read_car_data()
     print holdout(cls, examples, labels)
@@ -121,6 +122,7 @@ if __name__ == '__main__':
     print holdout(cls, examples, labels)
     print ten_fold(cls, examples, labels)
     print bootstrap(cls, examples, labels)
+    """
     cls = adaboost.Adaboost(decision_tree.Decision_Tree,
                             5)
     examples, labels = car_data.read_car_data()
