@@ -23,24 +23,18 @@ def cluster_diameter(es):
     return max_
         
              
-def plot_best_k(examples):
+def plot_best_k(examples, km):
     es = numpy.array(examples)
     sses = []
-    for k in range(1, 10):
-        subset = collections.defaultdict(list) 
-        km = KMeans(n_clusters=k)
-        km.fit(es)
-        for e in examples:
-            subset[km.predict(e)[0]].append(e)
-        diameter = 0.0
-        for key in subset:
-            diameter = max(cluster_diameter(subset[key]),
-                           diameter)
-        print diameter
-        sses.append(diameter)
-
-    pyplot.plot([i for i in range(1, 10)], sses)
-    pyplot.show()
+    subset = collections.defaultdict(list) 
+    km.fit(es)
+    for e in examples:
+        subset[km.predict(e)[0]].append(e)
+    diameter = 0.0
+    for key in subset:
+        diameter = max(cluster_diameter(subset[key]),
+                       diameter)
+    print diameter
 
 if __name__ == "__main__":
     """
@@ -49,5 +43,11 @@ if __name__ == "__main__":
     examples, labels = wine_data.get_wine_data()
     plot_best_k(examples)
     """
-    examples, labels = iris_data.get_wine_data()
-    km = KMeans(n_clusters=2, init=[[
+    examples, labels = iris_data.read_iris_data()
+    km = KMeans(n_clusters=2, init="k-means++")
+    plot_best_k(examples, km)
+    km = KMeans(n_clusters=2, init="random")
+    plot_best_k(examples, km)
+    km = KMeans(n_clusters=2, init=numpy.array([[1000, 1000, 1000, 1000], 
+                                               [-1000,-1000, 1000, 1000]]))
+    plot_best_k(examples, km)
